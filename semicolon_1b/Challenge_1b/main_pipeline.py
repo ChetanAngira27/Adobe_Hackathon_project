@@ -11,7 +11,14 @@ def run_HeadingExtraction(pdf_path, outline_path):
 
 def run_section_text_extractor(pdf_path, outline_path, section_texts_path):
     # Run section_text_extractor.py to extract section texts
-    result = subprocess.run([sys.executable, "section_text_extractor.py", pdf_path, outline_path], cwd=os.path.dirname(__file__), capture_output=True, text=True, check=True)
+    result = subprocess.run(
+        [sys.executable, "section_text_extractor.py", pdf_path, outline_path],
+        cwd=os.path.dirname(__file__),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        check=True,
+    )
     with open(section_texts_path, "w", encoding="utf-8") as f:
         f.write(result.stdout)
 

@@ -1,4 +1,4 @@
-import fitz
+import pymupdf as fitz
 import json
 import sys
 
@@ -50,4 +50,9 @@ if __name__ == "__main__":
     outline_path = sys.argv[2]
     outline = load_outline(outline_path)
     section_texts = extract_section_texts(pdf_path, outline)
-    print(json.dumps(section_texts, ensure_ascii=False, indent=2))
+    payload = json.dumps(section_texts, ensure_ascii=False, indent=2)
+    try:
+        sys.stdout.write(payload)
+    except UnicodeEncodeError:
+        sys.stdout.buffer.write(payload.encode("utf-8"))
+    sys.stdout.write("\n")
